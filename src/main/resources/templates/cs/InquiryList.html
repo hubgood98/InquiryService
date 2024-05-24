@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 문의 게시판</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>고객 문의 게시판</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>분류</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>답변상태</th>
+            <th>등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="inquiry, stat : ${InquiryLists}">
+            <td th:text="${stat.count + 1}"></td>
+            <td th:text="${inquiry.category}"></td>
+            <td><a th:href="@{/inquiries/{id}(id=${inquiry.id})}" th:text="${inquiry.title}"></a></td>
+            <td th:text="${inquiry.author}"></td>
+            <td th:text="${inquiry.status}"></td>
+            <td th:text="${inquiry.date}"></td>
+        </tr>
+        <!-- 문의가 없을 때 -->
+        <tr th:if="${#lists.isEmpty(InquiryLists)}">
+            <td colspan="6" style="text-align: center;">문의가 없습니다.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

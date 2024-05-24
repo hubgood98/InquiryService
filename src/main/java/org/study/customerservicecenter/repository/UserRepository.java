@@ -8,9 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository {
-        //User save(User user); 회원가입 테스트용
+        User save(User user);
         Optional<User> findById(String id);
         Optional<User> findByName(String name);
         List<User> findAll();
-        void clearStore();
+        boolean matches(String id, String password);
+        void clearUserList();
     }
