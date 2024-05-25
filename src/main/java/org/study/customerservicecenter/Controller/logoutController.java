@@ -22,6 +22,6 @@ public class logoutController {
         cookie.setMaxAge(0); //쿠키유효기간 0으로
         resp.addCookie(cookie);
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 }
