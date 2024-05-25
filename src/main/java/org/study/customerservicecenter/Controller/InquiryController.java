@@ -1,26 +1,25 @@
 package org.study.customerservicecenter.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.study.customerservicecenter.Service.InquiryService;
-import org.study.customerservicecenter.domain.Inquiry;
 
-import java.util.List;
 
 @Controller
-public class InquiryBoardController {
+public class InquiryController {
 
     private final InquiryService inquiryService;
 
-    public InquiryBoardController(InquiryService inquiryService) {
+    @Autowired
+    public InquiryController(InquiryService inquiryService) {
         this.inquiryService = inquiryService;
     }
 
     @GetMapping("/home/inquiry")
-    public String listInquiry(Model model) {
-        List<Inquiry> lists = inquiryService.getAllInquiries();
-        model.addAttribute("InquiryLists", lists);
+    public String getInquiries(Model model) {
+        model.addAttribute("inquiries", inquiryService.getAllInquiries());
         return "cs/InquiryList";
     }
 }

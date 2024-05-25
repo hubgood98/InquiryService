@@ -95,9 +95,12 @@
     <!--로그인 성공후-->
     <div th:if="${user != null}" class="user-container">
         <h2>내 정보</h2>
-        <p><span th:text="${user.id} + '님 안녕하세요'"></span></p>
+        <p><span th:text="${user.name} + '님 안녕하세요'"></span></p>
         <form th:action="@{/logout}" method="post">
             <button type="submit">로그아웃</button>
+        </form>
+        <form th:action="@{/home/inquiry}" method="get">
+            <button type="submit">문의하기</button>
         </form>
     </div>
     <!--아직 로그인 안한상태-->

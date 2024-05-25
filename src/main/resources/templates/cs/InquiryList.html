@@ -61,7 +61,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="inquiry, stat : ${InquiryLists}">
+        <tr th:each="inquiry, stat : ${inquiries}">
             <td th:text="${stat.count + 1}"></td>
             <td th:text="${inquiry.category}"></td>
             <td><a th:href="@{/inquiries/{id}(id=${inquiry.id})}" th:text="${inquiry.title}"></a></td>
