@@ -58,5 +58,15 @@ public class InquiryService {
         }
     }
 
+    public void addReplyToInquiry(Long id, String replyContent, String replyAuthor) {
+        Inquiry inquiry = inquiryRepository.findById(id);
+        if (inquiry == null) {
+            throw new RuntimeException("Inquiry not found");
+        }
+        inquiry.setReply(replyContent);
+        inquiry.setReplyAuthor(replyAuthor);
+        inquiryRepository.save(inquiry);
+    }
+
 
 }

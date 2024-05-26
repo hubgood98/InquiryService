@@ -62,8 +62,11 @@ public class InquiryRepository {
             inquiry.setContent(rs.getString("content"));
             inquiry.setAuthorId(rs.getString("author_id"));
             inquiry.setAnswered(rs.getBoolean("answered"));
+            inquiry.setReply(rs.getString("reply"));
+            inquiry.setReplyAuthor(rs.getString("replyauthor"));
             inquiry.setDate(rs.getTimestamp("date").toLocalDateTime());
             return inquiry;
         }
     }
+
 }

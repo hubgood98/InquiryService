@@ -71,7 +71,7 @@ public class InquiryManageController {
     }
 
     //문의사항 업데이트
-    @PostMapping("/inquiries/update/{id}/success")
+    @PostMapping("/inquiries/update/{id}")
     public String updateInquiry(@PathVariable("id") Long id,
                                 @RequestParam("title") String title,
                                 @RequestParam("category") String category,
@@ -80,6 +80,7 @@ public class InquiryManageController {
         try {
             inquiryService.updateInquiry(id, title, category, content);
             redirectAttributes.addFlashAttribute("message", "Inquiry updated successfully.");
+            log.info("문의사항 업데이트 완료");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to update inquiry.");
             log.error("Error updating inquiry: ", e);
@@ -87,5 +88,9 @@ public class InquiryManageController {
         return "redirect:/home/inquiries";
     }
 
-
+    //관리자 답글 폼열기
+    @GetMapping("/cs/adminReply/reply_form")
+    public String openEditForm() {
+        return "cs/adminReply/reply_form";
+    }
 }
