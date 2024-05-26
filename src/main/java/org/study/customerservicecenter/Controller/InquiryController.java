@@ -61,15 +61,52 @@ public class InquiryController {
             if (currentUser != null) {
                 // 작성자인지 확인
                 boolean isAuthor = inquiry.getAuthorId().equals(currentUser.getId());
+                boolean isAdmin = currentUser.isAdmin();
                 model.addAttribute("isAuthor", isAuthor);
+                model.addAttribute("isAdmin", isAdmin);
             } else {
                 model.addAttribute("isAuthor", false);
+                model.addAttribute("isAdmin", false);
             }
         } else {
             model.addAttribute("isAuthor", false);
+            model.addAttribute("isAdmin", false);
         }
 
         return "cs/InquiryDetail";
+    }
+
+    // 관리자 답글 폼 열기
+    @GetMapping("/cs/adminReply/reply_form/{id}")
+    public String openReplyForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("inquiryId", id);
+        return "cs/adminReply/reply_form";
+    }
+
+    // 답글 작성 후 기존 게시글 업데이트
+    @PostMapping("/inquiries/{id}/reply")
+    public String addReply(@PathVariable("id") Long id,
+                           @RequestParam("reply") String replyContent,
+                           RedirectAttributes redirectAttributes,
+                           HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                User currentUser = (User) session.getAttribute("user");
+                if (currentUser != null && currentUser.isAdmin()) {
+                    inquiryService.addReplyToInquiry(id, replyContent, currentUser.getName());
+                    redirectAttributes.addFlashAttribute("message", "Reply added successfully.");
+                } else {
+                    redirectAttributes.addFlashAttribute("error", "Only admins can add replies.");
+                }
+            } else {
+                redirectAttributes.addFlashAttribute("error", "User session not found.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to add reply.");
+            log.error("Error adding reply: ", e);
+        }
+        return "redirect:/inquiries/" + id;
     }
 
 }

@@ -78,15 +78,14 @@
         .button-container .list-button {
             background-color: #28a745;
         }
+        .button-container .reply-button {
+            background-color: #ffc107;
+        }
     </style>
 </head>
 <body>
 <div class="header">
-    <div class="header">
-        <h1>
-            <a href="/home" style="text-decoration: none; color: inherit;">NHN Mart 고객센터</a>
-        </h1>
-    </div>
+    <h1><a href="/home" style="text-decoration: none; color: inherit;">NHN Mart 고객센터</a></h1>
 </div>
 <div class="container">
     <h2>문의사항</h2>
@@ -104,19 +103,29 @@
             <td colspan="3" th:text="${inquiry.title}">제목</td>
         </tr>
         <tr>
-            <td colspan="4" th:utext="${inquiry.content}">
-                내용입니다 ㅎㅎ
-            </td>
+            <td colspan="4" th:utext="${inquiry.content}">내용입니다 ㅎㅎ</td>
+        </tr>
+        <!-- 답글 내용 표시 -->
+        <tr th:if="${inquiry.reply}">
+            <th>답글</th>
+            <td colspan="3" th:utext="${inquiry.reply}">답글 내용</td>
+        </tr>
+        <tr th:if="${inquiry.replyAuthor}">
+            <th>답글 작성자</th>
+            <td colspan="3" th:text="${inquiry.replyAuthor}">답글 작성자</td>
         </tr>
     </table>
     <div class="button-container">
         <form th:if="${isAuthor}" th:action="'/inquiries/' + ${inquiry.id} + '/edit'" method="get" style="display:inline;">
-            <button type="submit" class="delete-button">수정</button>
+            <button type="submit" class="edit-button">수정</button>
         </form>
-        <form th:if="${isAuthor}" th:action="'/inquiries/' + ${inquiry.id} + '/delete'" method="post" style="display:inline;">
+        <form th:if="${isAuthor} or ${isAdmin}" th:action="'/inquiries/' + ${inquiry.id} + '/delete'" method="post" style="display:inline;">
             <button type="submit" class="delete-button">삭제</button>
         </form>
         <button class="list-button" onclick="location.href='/home/inquiries'">목록</button>
+        <form th:if="${isAdmin}" th:action="'/cs/adminReply/reply_form/' + ${inquiry.id}" method="get" style="display:inline;">
+            <button type="submit" class="reply-button">답글달기</button>
+        </form>
     </div>
 </div>
 </body>
