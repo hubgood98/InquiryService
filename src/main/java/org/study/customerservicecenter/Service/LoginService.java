@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.study.customerservicecenter.domain.User;
-import org.study.customerservicecenter.repository.JdbcUserRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

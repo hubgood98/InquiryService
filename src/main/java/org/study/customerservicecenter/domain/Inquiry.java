@@ -15,19 +15,10 @@ public class Inquiry {
     private String authorId;
     private boolean answered;
     private LocalDateTime date;
+    private String reply;//답글내용
+    private String replyAuthor;//답글 작성자
 
 
     public Inquiry() {}
-
-    public Inquiry(Long id, String category, String title, String authorId,boolean answered, LocalDateTime date) {
-        this.id = id;
-        this.category = category;
-        this.title = title;
-        this.content = "";
-        this.authorId = authorId;
-        this.answered = answered;
-        this.date = date;
-    }
-
 
 }
