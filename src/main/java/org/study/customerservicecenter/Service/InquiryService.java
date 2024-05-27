@@ -65,7 +65,8 @@ public class InquiryService {
         }
         inquiry.setReply(replyContent);
         inquiry.setReplyAuthor(replyAuthor);
-        inquiryRepository.save(inquiry);
+        inquiry.setAnswered(true);
+        inquiryRepository.update(inquiry);
     }
 
 

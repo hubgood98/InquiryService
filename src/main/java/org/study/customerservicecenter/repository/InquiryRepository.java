@@ -38,8 +38,8 @@ public class InquiryRepository {
     }
 
     public void update(Inquiry inquiry) {
-        String sql = "UPDATE inquiries SET category = ?, title = ?, content = ?, answered = ?, date = ? WHERE id = ?";
-        jdbcTemplate.update(sql, inquiry.getCategory(), inquiry.getTitle(), inquiry.getContent(), inquiry.isAnswered(), inquiry.getDate(), inquiry.getId());
+        String sql = "UPDATE inquiries SET category = ?, title = ?, reply = ?, replyauthor = ?, content = ?, answered = ?, date = ? WHERE id = ?";
+        jdbcTemplate.update(sql, inquiry.getCategory(), inquiry.getTitle(), inquiry.getReply(), inquiry.getReplyAuthor(), inquiry.getContent(), inquiry.isAnswered(), inquiry.getDate(), inquiry.getId());
     }
 
     public List<Inquiry> findByAuthor(String authorId) {
